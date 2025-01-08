@@ -95,7 +95,7 @@ public class UserController {
         // Use the correct HTTPS URL for your API
         // The ip here is test while being in coded. For testing purposes, change it to the one corrosponding to your current ip
         // run "ipconfig /all" (windows) and copy the ip for "IPv4 Address" and replace with "192.168.8.92"
-        String url = "http://192.168.8.92:8080/api/generate-pdf";
+        String url = "http://192.168.2.146:8081/api/auth/generate-pdf";
 
         try {
             // Create a QRCodeWriter instance

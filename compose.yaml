@@ -1,0 +1,40 @@
+# this is the compose file to be placed on a folder that contains 2 folders named backend and frontend
+# these folders must directly contain each project files including Dockerfile.
+services:
+  postgres:
+    image: postgres
+    container_name: generationsbank_db
+    environment:
+      - POSTGRES_PASSWORD=GenerationsBankCustomer
+      - POSTGRES_USER=GenerationsBankCustomer
+      - POSTGRES_DB=generationsbank_db
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgamin-container
+    ports:
+      - "82:80"
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=ibrahim.a.y.m.98@gmail.com
+      - PGADMIN_DEFAULT_PASSWORD=9I8bR
+    depends_on:
+      - postgres
+  backend:
+    build: ./backend/GenerationsBank # must match the "SPRING.APPLICATION.NAME" in project properties file in spring boot
+    container_name: backend-container
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+  frontend:
+    build: ./frontend/my-app
+    container_name: frontend-container
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+volumes:
+  pgdata:
